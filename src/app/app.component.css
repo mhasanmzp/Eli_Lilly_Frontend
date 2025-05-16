@@ -1,0 +1,60 @@
+/* .container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f2f2f2;
+}
+
+.success-msg {
+  color: green;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.error-msg {
+  color: red;
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+.duplicate-section {
+  margin-top: 30px;
+  background: #fff3f3;
+  padding: 15px;
+  border: 1px solid #f3caca;
+  border-radius: 4px;
+} */
+
+.card-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+button i {
+  margin-right: 5px;
+}
