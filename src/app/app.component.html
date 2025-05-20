@@ -193,6 +193,7 @@
   </div>
 </div> -->
 
+<!-- Exact Duplicates Table -->
 <div *ngIf="duplicateRecords.length > 0" class="card border-danger shadow-sm mb-4">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center">
@@ -209,24 +210,23 @@
         <table class="table table-bordered table-hover table-sm align-middle text-nowrap">
           <thead class="table-danger position-sticky top-0">
             <tr>
-              <th class="text-center">Vendor Id</th> <!-- Added -->
+              <th class="text-center">Vendor Id</th>
               <th *ngFor="let head of headers" class="text-center">{{ head }}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let record of duplicateRecords">
-              <td class="text-center" style="color: black; font-weight: 500;">{{ record.row.BusinessPartner }}</td> <!-- Added -->
+              <td class="text-center" style="color: black; font-weight: 500;">{{ record.row.BusinessPartner }}</td>
               <td *ngFor="let head of headers" class="text-center">
-                <ng-container *ngIf="getMatchInfo(record.matchedFields, head) as match">
+                <ng-container *ngIf="getMatchInfo(record.matches, head) as match"> <!-- Changed to matches -->
                   <span [ngStyle]="{
-                    'color': match.percentage === 100 ? 'red' :
-                             (match.percentage > 0 ? 'orange' : 'green'),
+                    'color': 'red', 
                     'font-weight': '500'
                   }" [title]="'Matched Value: ' + match.matchedValue + ', ' + match.percentage + '%'">
                     {{ record.row[head] }}
                   </span>
                 </ng-container>
-                <ng-container *ngIf="!getMatchInfo(record.matchedFields, head)">
+                <ng-container *ngIf="!getMatchInfo(record.matches, head)">
                   <span style="color: black; font-weight: 500;">
                     {{ record.row[head] }}
                   </span>
@@ -240,7 +240,7 @@
   </div>
 </div>
 
-
+<!-- Potential Duplicates Table -->
 <div *ngIf="potentialMatches.length > 0" class="card border-warning shadow-sm mb-4">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center">
@@ -260,7 +260,7 @@
               <th class="text-center">
                 <input type="checkbox" [(ngModel)]="selectAllPotential" (change)="toggleSelectAll('potential')" />
               </th>
-              <th class="text-center">Vendor Id</th> <!-- Added -->
+              <th class="text-center">Vendor Id</th>
               <th *ngFor="let head of headers" class="text-center">{{ head }}</th>
             </tr>
           </thead>
@@ -269,12 +269,11 @@
               <td class="text-center">
                 <input type="checkbox" [(ngModel)]="record.selected" />
               </td>
-              <td class="text-center" style="color: black; font-weight: 500;">{{ record.row.BusinessPartner }}</td> <!-- Added -->
+              <td class="text-center" style="color: black; font-weight: 500;">{{ record.row.BusinessPartner }}</td>
               <td *ngFor="let head of headers" class="text-center">
                 <ng-container *ngIf="getMatchInfo(record.matches, head) as match">
                   <span [ngStyle]="{
-                    'color': match.percentage === 100 ? 'red' :
-                             (match.percentage > 0 ? 'orange' : 'green'),
+                    'color': '#ffc107',  
                     'font-weight': '500'
                   }" [title]="'Matched Value: ' + match.matchedValue + ', ' + match.percentage + '%'">
                     {{ record.row[head] }}
