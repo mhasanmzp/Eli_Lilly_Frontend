@@ -71,24 +71,53 @@ toggleSelectAll(type: 'potential' | 'unique') {
 }
 
 
-  validateData() {
-    // this.http.post<any>('http://localhost:5000/validate-data', {
-      this.http.post<any>('http://localhost:3000/fetch-and-validate-New', {
+  // validateData() {
+  //   // this.http.post<any>('http://localhost:3000/validate', {
+  //     this.http.post<any>('http://localhost:3000/validate-data-excel', {
 
+  //     records: this.excelData,
+  //   }).subscribe(
+  //     res => {
+  //       this.exactMatches = res.exactMatches || [];
+  //       this.partialMatches = res.partialMatches || [];
+  //       this.uniqueRecords = res.uniqueRecords || [];
+  //       this.duplicateRecords = res.duplicates || [];
+  //       this.potentialMatches = res.potentialMatches || [];
+  //       this.message = res.success ? 'Validation completed.' : 'Validation failed.';
+  //       this.success = res.success;
+
+  //       // Show section after validation
+  //       this.showUniqueTable = true;
+
+  //     },
+  //     err => {
+  //       this.message = 'Validation failed.';
+  //       this.success = false;
+  //     }
+  //   );
+  // }
+  
+  validateData() {
+    this.http.post<any>('http://localhost:3000/validate-data-excel', {
       records: this.excelData,
     }).subscribe(
       res => {
-        this.exactMatches = res.exactMatches || [];
-        this.partialMatches = res.partialMatches || [];
-        this.uniqueRecords = res.uniqueRecords || [];
+        // Map API response to component properties
         this.duplicateRecords = res.duplicates || [];
         this.potentialMatches = res.potentialMatches || [];
+        this.uniqueRecords = res.uniqueRecords || [];  // This was already correct
+        
+        // Clear legacy properties
+        this.exactMatches = [];
+        this.partialMatches = [];
+        
         this.message = res.success ? 'Validation completed.' : 'Validation failed.';
         this.success = res.success;
-
-        // Show section after validation
+  
+        // Ensure sections are visible
+        this.showDuplicatesTable = true;
+        this.showPotentialTable = true;
         this.showUniqueTable = true;
-
       },
       err => {
         this.message = 'Validation failed.';
@@ -96,7 +125,6 @@ toggleSelectAll(type: 'potential' | 'unique') {
       }
     );
   }
-  
 
   saveUniqueData() {
     this.http.post<any>('http://localhost:5000/save-unique', {

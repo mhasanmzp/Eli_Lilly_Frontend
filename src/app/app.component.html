@@ -322,9 +322,10 @@
               <td class="text-center">
                 <input type="checkbox" [(ngModel)]="record.selected" />
               </td>
+              <!-- Access record.row to get the actual data -->
               <td *ngFor="let head of headers" class="text-center">
                 <span style="color: black; font-weight: 500;">
-                  {{ record[head] }}
+                  {{ record.row[head] }}
                 </span>
               </td>
             </tr>
